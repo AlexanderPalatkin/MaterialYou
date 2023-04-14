@@ -1,0 +1,69 @@
+package com.example.materialyou.ui
+
+import android.os.Bundle
+import android.view.Gravity
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import coil.load
+import com.example.materialyou.databinding.FragmentPictureOfTheDayBinding
+
+class PictureOfTheDayFragment : Fragment() {
+    private var _binding: FragmentPictureOfTheDayBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+
+        _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
+        return binding.root
+
+    }
+
+    val viewModel: PictureOfTheDayViewModel by lazy {
+        ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getLiveData().observe(
+            viewLifecycleOwner
+        ) { renderData(it) }
+
+    }
+
+    private fun renderData(data: AppState) {
+        when (data) {
+            is AppState.Error -> {
+                toast(data.error.message)
+            }
+            is AppState.Loading -> {}
+            is AppState.Success -> {
+                val url = data.pictureOfTheDayResponseData.url
+                if (url.isEmpty()) {
+                    toast("Link is empty")
+                } else {
+                    binding.imageView.load(url)
+                }
+            }
+        }
+    }
+
+    private fun Fragment.toast(string: String?) {
+        Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
+            setGravity(Gravity.BOTTOM, 0, 250)
+            show()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
