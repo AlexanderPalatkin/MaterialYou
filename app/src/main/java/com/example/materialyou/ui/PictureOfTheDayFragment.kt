@@ -19,10 +19,8 @@ class PictureOfTheDayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     private val viewModel: PictureOfTheDayViewModel by lazy {
@@ -35,6 +33,15 @@ class PictureOfTheDayFragment : Fragment() {
             viewLifecycleOwner
         ) { renderData(it) }
 
+        binding.chipToday.setOnClickListener {
+            Toast.makeText(requireContext(), "Today", Toast.LENGTH_SHORT).show()
+        }
+        binding.chipYesterday.setOnClickListener {
+            Toast.makeText(requireContext(), "Yesterday", Toast.LENGTH_SHORT).show()
+        }
+        binding.chipDayBeforeYesterday.setOnClickListener {
+            Toast.makeText(requireContext(), "DayBeforeYesterday", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun renderData(data: AppState) {
