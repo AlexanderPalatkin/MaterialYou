@@ -1,5 +1,7 @@
 package com.example.materialyou.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -41,6 +43,14 @@ class PictureOfTheDayFragment : Fragment() {
         }
         binding.chipDayBeforeYesterday.setOnClickListener {
             Toast.makeText(requireContext(), "DayBeforeYesterday", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.inputLayoutSearch.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data =
+                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditSearch.text.toString()}")
+            })
+
         }
     }
 
