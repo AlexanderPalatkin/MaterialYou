@@ -36,6 +36,18 @@ class PictureOfTheDayFragment : Fragment() {
             viewLifecycleOwner
         ) {appState -> renderData(appState) }
 
+        loadChipsClickListeners()
+
+        binding.inputLayoutSearch.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data =
+                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditSearch.text.toString()}")
+            })
+
+        }
+    }
+
+    private fun loadChipsClickListeners() {
         binding.chipToday.setOnClickListener {
             viewModel.sendRequest("today")
             Toast.makeText(requireContext(), "Today", Toast.LENGTH_SHORT).show()
@@ -49,14 +61,6 @@ class PictureOfTheDayFragment : Fragment() {
             val dayBeforeYesterday = LocalDate.now().minusDays(2).toString()
             viewModel.sendRequest(dayBeforeYesterday)
             Toast.makeText(requireContext(), "DayBeforeYesterday", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.inputLayoutSearch.setEndIconOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data =
-                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditSearch.text.toString()}")
-            })
-
         }
     }
 
