@@ -17,11 +17,10 @@ class PictureOfTheDayViewModel(
     ViewModel() {
 
     fun getLiveData(): LiveData<AppState> {
-        sendRequest()
         return liveData
     }
 
-    private fun sendRequest() {
+    fun sendRequest(date: String) {
         liveData.value = AppState.Loading
         val apiKey = BuildConfig.NASA_API_KEY
         if (
@@ -29,7 +28,12 @@ class PictureOfTheDayViewModel(
         ) {
             liveData.value = AppState.Error(Throwable("You need API key"))
         } else {
-            repositoryImpl.getPictureOfTheDayApi().getPictureOfTheDay(apiKey).enqueue(callback)
+            if (date == "today") {
+                repositoryImpl.getPictureOfTheDayApi().getPictureOfTheDay(apiKey).enqueue(callback)
+            } else {
+                repositoryImpl.getPictureOfTheDayApi().getPictureOfTheDayByDate(apiKey, date)
+                    .enqueue(callback)
+            }
         }
     }
 

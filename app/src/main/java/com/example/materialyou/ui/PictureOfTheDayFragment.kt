@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.example.materialyou.databinding.FragmentPictureOfTheDayBinding
+import java.time.LocalDate
 
 class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentPictureOfTheDayBinding? = null
@@ -33,15 +34,20 @@ class PictureOfTheDayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLiveData().observe(
             viewLifecycleOwner
-        ) { renderData(it) }
+        ) {appState -> renderData(appState) }
 
         binding.chipToday.setOnClickListener {
+            viewModel.sendRequest("today")
             Toast.makeText(requireContext(), "Today", Toast.LENGTH_SHORT).show()
         }
         binding.chipYesterday.setOnClickListener {
+            val yesterday = LocalDate.now().minusDays(1).toString()
+            viewModel.sendRequest(yesterday)
             Toast.makeText(requireContext(), "Yesterday", Toast.LENGTH_SHORT).show()
         }
         binding.chipDayBeforeYesterday.setOnClickListener {
+            val dayBeforeYesterday = LocalDate.now().minusDays(2).toString()
+            viewModel.sendRequest(dayBeforeYesterday)
             Toast.makeText(requireContext(), "DayBeforeYesterday", Toast.LENGTH_SHORT).show()
         }
 
