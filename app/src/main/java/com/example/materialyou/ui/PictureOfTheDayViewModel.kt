@@ -28,7 +28,7 @@ class PictureOfTheDayViewModel(
         ) {
             liveData.value = AppState.Error(Throwable("You need API key"))
         } else {
-            if (date == "today") {
+            if (date == "Today") {
                 repositoryImpl.getPictureOfTheDayApi().getPictureOfTheDay(apiKey).enqueue(callback)
             } else {
                 repositoryImpl.getPictureOfTheDayApi().getPictureOfTheDayByDate(apiKey, date)

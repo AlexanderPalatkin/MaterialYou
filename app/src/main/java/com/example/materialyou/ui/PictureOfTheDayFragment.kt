@@ -11,7 +11,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.example.materialyou.R
 import com.example.materialyou.databinding.FragmentPictureOfTheDayBinding
+import com.example.materialyou.utils.WIKI_URL
 import java.time.LocalDate
 
 class PictureOfTheDayFragment : Fragment() {
@@ -41,7 +43,7 @@ class PictureOfTheDayFragment : Fragment() {
         binding.inputLayoutSearch.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data =
-                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditSearch.text.toString()}")
+                    Uri.parse("${WIKI_URL}${binding.inputEditSearch.text.toString()}")
             })
 
         }
@@ -49,18 +51,18 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun loadChipsClickListeners() {
         binding.chipToday.setOnClickListener {
-            viewModel.sendRequest("today")
-            Toast.makeText(requireContext(), "Today", Toast.LENGTH_SHORT).show()
+            viewModel.sendRequest(getString(R.string.today))
+            Toast.makeText(requireContext(), getString(R.string.today), Toast.LENGTH_SHORT).show()
         }
         binding.chipYesterday.setOnClickListener {
             val yesterday = LocalDate.now().minusDays(1).toString()
             viewModel.sendRequest(yesterday)
-            Toast.makeText(requireContext(), "Yesterday", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.yesterday), Toast.LENGTH_SHORT).show()
         }
         binding.chipDayBeforeYesterday.setOnClickListener {
             val dayBeforeYesterday = LocalDate.now().minusDays(2).toString()
             viewModel.sendRequest(dayBeforeYesterday)
-            Toast.makeText(requireContext(), "DayBeforeYesterday", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.day_before_yesterday), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -73,7 +75,7 @@ class PictureOfTheDayFragment : Fragment() {
             is AppState.Success -> {
                 val url = data.pictureOfTheDayResponseData.url
                 if (url.isEmpty()) {
-                    toast("Link is empty")
+                    toast(getString(R.string.link_is_empty))
                 } else {
                     binding.imageView.load(url)
                 }

@@ -1,3 +1,4 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fr_picture_of_the_day_text_input_padding">10dp</dimen>
 </resources>
