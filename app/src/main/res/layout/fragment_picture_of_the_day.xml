@@ -1,5 +1,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -23,7 +24,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputEditSearch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="TextContrastCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -38,24 +40,24 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipDayBeforeYesterday"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/day_before_yesterday" />
+            android:text="@string/day_before_yesterday"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipYesterday"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/yesterday" />
+            android:text="@string/yesterday"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipToday"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/today" />
+            android:text="@string/today"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.chip.ChipGroup>
 

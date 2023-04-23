@@ -4,9 +4,21 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="themeColorPrimary">@color/colorPrimary</item>
+        <item name="chipStyle">@style/MyChipsStyle</item>
+
     </style>
 
     <style name="Theme.MaterialYou" parent="Base.Theme.MaterialYou" />
+    
+    <style name="MyChipsTextAppearanceBody2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.0278571429</item>
+    </style>
+    <style name="MyChipsStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textAppearance">@style/MyChipsTextAppearanceBody2</item>
+    </style>
 
     <style name="IndigoTheme" parent="Theme.MaterialYou">
         <item name="colorPrimary">@color/indigo</item>
