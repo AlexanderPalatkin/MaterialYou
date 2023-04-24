@@ -1,4 +1,4 @@
-package com.example.materialyou.ui
+package com.example.materialyou.ui.picture
 
 import com.example.materialyou.model.dto.PictureOfTheDayResponseData
 

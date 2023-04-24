@@ -2,11 +2,51 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MaterialYou" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="themeColorPrimary">@color/colorPrimary</item>
+        <item name="chipStyle">@style/MyChipsStyle</item>
 
-        <item name="colorOnSurface">#D84074</item>
     </style>
 
     <style name="Theme.MaterialYou" parent="Base.Theme.MaterialYou" />
+
+    <style name="MyChipsShapeAppearanceSmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+    
+    <style name="MyChipsTextAppearanceBody2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.0278571429</item>
+    </style>
+    <style name="MyChipsStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="shapeAppearance">@style/MyChipsShapeAppearanceSmallComponent</item>
+        <item name="android:textAppearance">@style/MyChipsTextAppearanceBody2</item>
+    </style>
+
+    <style name="IndigoTheme" parent="Theme.MaterialYou">
+        <item name="colorPrimary">@color/indigo</item>
+        <item name="colorPrimaryVariant">@color/indigo_dark</item>
+        <item name="colorSecondary">@color/light_gray</item>
+        <item name="colorSecondaryVariant">@color/light_gray</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="textColorConnected">@color/green</item>
+        <item name="textColorDisConnected">@color/light_gray</item>
+        <item name="themeColorPrimary">@color/teal_700</item>
+    </style>
+
+    <style name="PinkTheme" parent="Theme.MaterialYou">
+        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimaryVariant">@color/pink_dark</item>
+        <item name="colorSecondary">@color/pink_light</item>
+        <item name="colorSecondaryVariant">@color/pink_light</item>
+        <item name="colorOnSecondary">@color/pink_light</item>
+        <item name="textColorConnected">@color/green</item>
+        <item name="textColorDisConnected">@color/light_gray</item>
+        <item name="themeColorPrimary">@color/pink</item>
+    </style>
+
 
 </resources>
