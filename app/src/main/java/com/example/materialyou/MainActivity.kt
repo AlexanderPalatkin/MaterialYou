@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.materialyou.databinding.ActivityMainBinding
-import com.example.materialyou.ui.PictureOfTheDayFragment
+import com.example.materialyou.ui.picture.PictureOfTheDayFragment
 
 class MainActivity : AppCompatActivity() {
 

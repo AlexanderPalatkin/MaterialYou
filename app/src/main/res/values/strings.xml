@@ -17,4 +17,6 @@
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="link_is_empty">Link is empty</string>
+    <string name="pink">Pink</string>
+    <string name="indigo">Indigo</string>
 </resources>

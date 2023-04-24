@@ -1,4 +1,4 @@
-package com.example.materialyou.ui
+package com.example.materialyou.ui.picture
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
