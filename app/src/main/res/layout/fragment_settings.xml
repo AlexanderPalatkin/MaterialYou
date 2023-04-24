@@ -4,22 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.tabs.TabLayout
-        android:layout_width="match_parent"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/settingsChipGroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:singleSelection="true">
 
-        <com.google.android.material.tabs.TabItem
+        <com.google.android.material.chip.Chip
+            android:id="@+id/settingsChipPink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pink" />
+            android:text="@string/pink"
+            tools:ignore="TouchTargetSizeCheck" />
 
-        <com.google.android.material.tabs.TabItem
+        <com.google.android.material.chip.Chip
+            android:id="@+id/settingsChipIndigo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/indigo" />
-    </com.google.android.material.tabs.TabLayout>
+            android:text="@string/indigo"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+    </com.google.android.material.chip.ChipGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
