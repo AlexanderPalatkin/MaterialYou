@@ -19,4 +19,7 @@
     <string name="link_is_empty">Link is empty</string>
     <string name="pink">Pink</string>
     <string name="indigo">Indigo</string>
+    <string name="earth">Earth</string>
+    <string name="mars">Mars</string>
+    <string name="weather">Weather</string>
 </resources>
