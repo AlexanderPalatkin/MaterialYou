@@ -8,11 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.example.materialyou.MainActivity
+import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.R
 import com.example.materialyou.databinding.FragmentPictureOfTheDayBinding
 import com.example.materialyou.ui.drawer.BottomNavigationDrawerFragment
 import com.example.materialyou.ui.settings.SettingsFragment
+import com.example.materialyou.ui.viewpager.ViewPagerActivity
 import com.example.materialyou.utils.WIKI_URL
 import java.time.LocalDate
 
@@ -117,7 +118,9 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_bar_fav -> toast("Favourite")
+            R.id.action_bar_fav -> {
+                activity?.let { startActivity(Intent(it, ViewPagerActivity::class.java)) }
+            }
             R.id.action_bar_settings -> {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .hide(this)
