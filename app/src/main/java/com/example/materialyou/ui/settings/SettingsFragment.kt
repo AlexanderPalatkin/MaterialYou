@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.R
 import com.example.materialyou.databinding.FragmentSettingsBinding
+import com.example.materialyou.utils.KEY_CURRENT_THEME_LOCAL
+import com.example.materialyou.utils.KEY_SP_LOCAL
 
 class SettingsFragment : Fragment() {
 
-    private val KEY_SP_LOCAL = "sp_local"
-    private val KEY_CURRENT_THEME_LOCAL = "current_theme_local"
     private val themePink = R.style.PinkTheme
     private val themeIndigo = R.style.IndigoTheme
 
@@ -34,7 +34,6 @@ class SettingsFragment : Fragment() {
         _binding = FragmentSettingsBinding.inflate(localInflater)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,16 +58,6 @@ class SettingsFragment : Fragment() {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    companion object {
-        fun newInstance() = SettingsFragment()
-    }
-
-
     private fun setCurrentThemeLocal(currentTheme: Int){
         val sharedPreferences =
             requireActivity().getSharedPreferences(KEY_SP_LOCAL, AppCompatActivity.MODE_PRIVATE)
@@ -89,6 +78,15 @@ class SettingsFragment : Fragment() {
             themeIndigo -> R.style.IndigoTheme
             else -> 0
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        fun newInstance() = SettingsFragment()
     }
 
 }

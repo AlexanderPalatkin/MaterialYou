@@ -1,13 +1,11 @@
 package com.example.materialyou.ui.viewpager
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.ViewPager
 import com.example.materialyou.R
 import com.example.materialyou.databinding.ActivityViewPagerBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class ViewPagerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityViewPagerBinding
@@ -15,130 +13,47 @@ class ViewPagerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityViewPagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.viewPager.adapter = ViewPagerAdapter(supportFragmentManager)
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
 
-        setHighlightedTab(EARTH)
-
-        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                // Nothing to do
-            }
-
-            override fun onPageSelected(position: Int) {
-                setHighlightedTab(position)
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-                // Nothing to do
-            }
-
-        })
+        binding.viewPager.adapter = ViewPagerAdapter(this)
+        setTabs()
 
     }
 
-    private fun setHighlightedTab(position: Int) {
-        val layoutInflater = LayoutInflater.from(this@ViewPagerActivity)
-        with(binding) {
-            tabLayout.getTabAt(EARTH)?.customView = null
-            tabLayout.getTabAt(MARS)?.customView = null
-            tabLayout.getTabAt(WEATHER)?.customView = null
-        }
-
-        when (position) {
-            EARTH -> {
-                setEarthTabHighlighted(layoutInflater)
+    private fun setTabs() {
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                EARTH -> {
+                    getString(R.string.earth_tab_text)
+                }
+                MARS -> {
+                    getString(R.string.mars_tab_text)
+                }
+                WEATHER -> {
+                    getString(R.string.weather_tab_text)
+                }
+                else -> {
+                    getString(R.string.earth_tab_text)
+                }
             }
-            MARS -> {
-                setMarsTabHighlighted(layoutInflater)
+            tab.icon = when (position) {
+                EARTH -> {
+                    ContextCompat.getDrawable(this@ViewPagerActivity,
+                        R.drawable.ic_earth)
+                }
+                MARS -> {
+                    ContextCompat.getDrawable(this@ViewPagerActivity,
+                        R.drawable.ic_mars)
+                }
+                WEATHER -> {
+                    ContextCompat.getDrawable(this@ViewPagerActivity,
+                        R.drawable.ic_system)
+                }
+                else -> {
+                    ContextCompat.getDrawable(this@ViewPagerActivity,
+                        R.drawable.ic_earth)
+                }
             }
-            WEATHER -> {
-                setWeatherTabHighlighted(layoutInflater)
-            }
-            else -> {
-                setEarthTabHighlighted(layoutInflater)
-            }
-        }
-    }
-
-    private fun setEarthTabHighlighted(layoutInflater: LayoutInflater) {
-        val earth =
-            layoutInflater.inflate(
-                R.layout.activity_view_pager_custom_tab_earth,
-                null
-            )
-        earth.findViewById<AppCompatTextView>(R.id.tab_image_textview)
-            .setTextColor(
-                ContextCompat.getColor(
-                    this@ViewPagerActivity,
-                    R.color.colorAccent
-                )
-            )
-        with(binding) {
-            tabLayout.getTabAt(EARTH)?.customView = earth
-            tabLayout.getTabAt(MARS)?.customView =
-                layoutInflater.inflate(R.layout.activity_view_pager_custom_tab_mars, null)
-            tabLayout.getTabAt(WEATHER)?.customView =
-                layoutInflater.inflate(
-                    R.layout.activity_view_pager_custom_tab_weather,
-                    null
-                )
-        }
-
-    }
-
-    private fun setMarsTabHighlighted(layoutInflater: LayoutInflater) {
-        val mars =
-            layoutInflater.inflate(R.layout.activity_view_pager_custom_tab_mars, null)
-        mars.findViewById<AppCompatTextView>(R.id.tab_image_textview)
-            .setTextColor(
-                ContextCompat.getColor(
-                    this@ViewPagerActivity,
-                    R.color.colorAccent
-                )
-            )
-        with(binding) {
-            tabLayout.getTabAt(EARTH)?.customView =
-                layoutInflater.inflate(
-                    R.layout.activity_view_pager_custom_tab_earth,
-                    null
-                )
-            tabLayout.getTabAt(MARS)?.customView = mars
-            tabLayout.getTabAt(WEATHER)?.customView =
-                layoutInflater.inflate(
-                    R.layout.activity_view_pager_custom_tab_weather,
-                    null
-                )
-        }
-    }
-
-    private fun setWeatherTabHighlighted(layoutInflater: LayoutInflater) {
-        val weather =
-            layoutInflater.inflate(
-                R.layout.activity_view_pager_custom_tab_weather,
-                null
-            )
-        weather.findViewById<AppCompatTextView>(R.id.tab_image_textview)
-            .setTextColor(
-                ContextCompat.getColor(
-                    this@ViewPagerActivity,
-                    R.color.colorAccent
-                )
-            )
-        with(binding) {
-            tabLayout.getTabAt(EARTH)?.customView =
-                layoutInflater.inflate(
-                    R.layout.activity_view_pager_custom_tab_earth,
-                    null
-                )
-            tabLayout.getTabAt(MARS)?.customView =
-                layoutInflater.inflate(R.layout.activity_view_pager_custom_tab_mars, null)
-            tabLayout.getTabAt(WEATHER)?.customView = weather
-        }
+        }.attach()
     }
 
     companion object {

@@ -19,7 +19,11 @@
     <string name="link_is_empty">Link is empty</string>
     <string name="pink">Pink</string>
     <string name="indigo">Indigo</string>
-    <string name="earth">Earth</string>
-    <string name="mars">Mars</string>
-    <string name="weather">Weather</string>
+    <string name="earth_tab_text">Earth</string>
+    <string name="mars_tab_text">Mars</string>
+    <string name="weather_tab_text">Weather</string>
+    <string name="nav_bottom_menu_item_first">На экран 1</string>
+    <string name="nav_bottom_menu_item_second">На экран 2</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
 </resources>
