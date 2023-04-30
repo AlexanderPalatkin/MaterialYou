@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.materialyou.ui.MainActivity">
     <item
+        android:id="@+id/action_bar_telescope"
+        android:icon="@drawable/ic_telescope"
+        android:title="@string/telescope"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_bar_fav"
         android:icon="@drawable/ic_favourite_menu"
         android:title="@string/favourite"

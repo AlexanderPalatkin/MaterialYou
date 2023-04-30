@@ -11,6 +11,7 @@ import coil.load
 import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.R
 import com.example.materialyou.databinding.FragmentPictureOfTheDayBinding
+import com.example.materialyou.ui.drawer.BottomNavigationActivity
 import com.example.materialyou.ui.drawer.BottomNavigationDrawerFragment
 import com.example.materialyou.ui.settings.SettingsFragment
 import com.example.materialyou.ui.viewpager.ViewPagerActivity
@@ -118,6 +119,9 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_bar_telescope -> {
+                activity?.let { startActivity(Intent(it, BottomNavigationActivity::class.java)) }
+            }
             R.id.action_bar_fav -> {
                 activity?.let { startActivity(Intent(it, ViewPagerActivity::class.java)) }
             }
