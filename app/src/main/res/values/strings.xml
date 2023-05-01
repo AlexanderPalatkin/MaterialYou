@@ -27,4 +27,7 @@
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="telescope">Telescope</string>
+    <string name="menu_item_text_earth">Earth</string>
+    <string name="menu_item_text_mars">Mars</string>
+    <string name="menu_item_text_weather">Weather</string>
 </resources>

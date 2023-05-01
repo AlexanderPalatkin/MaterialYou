@@ -13,4 +13,5 @@
     <dimen name="fragment_tab_indicator_image_margin_right">7dp</dimen>
     <dimen name="fragment_picture_of_the_day_padding_start">10dp</dimen>
     <dimen name="fragment_picture_of_the_day_padding_end">10dp</dimen>
+    <dimen name="fab_settings_margin">16dp</dimen>
 </resources>

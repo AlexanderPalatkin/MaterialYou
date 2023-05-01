@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.R
 import com.example.materialyou.databinding.FragmentSettingsBinding
@@ -29,7 +30,7 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val context: Context = ContextThemeWrapper(activity, getRealStyleLocal(getCurrentThemeLocal()))
+        val context: Context = ContextThemeWrapper(parentActivity, getRealStyleLocal(getCurrentThemeLocal()))
         val localInflater = inflater.cloneInContext(context)
         _binding = FragmentSettingsBinding.inflate(localInflater)
         return binding.root
@@ -46,6 +47,7 @@ class SettingsFragment : Fragment() {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, SettingsFragment.newInstance())
+                .addToBackStack(null)
                 .commit()
         }
         binding.settingsChipIndigo.setOnClickListener {
@@ -53,7 +55,13 @@ class SettingsFragment : Fragment() {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, SettingsFragment.newInstance())
+                .addToBackStack(null)
                 .commit()
+        }
+
+
+        binding.floatingActionButtonSettings.setOnClickListener {
+            parentFragmentManager.popBackStack("pictureOfTheDayFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
 
     }

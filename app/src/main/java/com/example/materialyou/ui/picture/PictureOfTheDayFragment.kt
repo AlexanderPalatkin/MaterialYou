@@ -1,10 +1,12 @@
 package com.example.materialyou.ui.picture
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -15,6 +17,8 @@ import com.example.materialyou.ui.drawer.BottomNavigationActivity
 import com.example.materialyou.ui.drawer.BottomNavigationDrawerFragment
 import com.example.materialyou.ui.settings.SettingsFragment
 import com.example.materialyou.ui.viewpager.ViewPagerActivity
+import com.example.materialyou.utils.KEY_CURRENT_THEME_LOCAL
+import com.example.materialyou.utils.KEY_SP_LOCAL
 import com.example.materialyou.utils.WIKI_URL
 import java.time.LocalDate
 
@@ -35,7 +39,9 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.getLiveData().observe(
             viewLifecycleOwner
         ) { appState -> renderData(appState) }
@@ -129,7 +135,7 @@ class PictureOfTheDayFragment : Fragment() {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .hide(this)
                     .add(R.id.container, SettingsFragment.newInstance())
-                    .addToBackStack("")
+                    .addToBackStack("pictureOfTheDayFragment")
                     .commit()
             }
             android.R.id.home -> {
@@ -139,6 +145,21 @@ class PictureOfTheDayFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun getCurrentThemeLocal(): Int {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences(KEY_SP_LOCAL, AppCompatActivity.MODE_PRIVATE)
+        return sharedPreferences.getInt(KEY_CURRENT_THEME_LOCAL, -1)
+    }
+
+    override fun onResume() {
+        when(getCurrentThemeLocal()) {
+            R.style.PinkTheme -> requireActivity().setTheme(R.style.PinkTheme)
+            R.style.IndigoTheme -> requireActivity().setTheme(R.style.IndigoTheme)
+        }
+        super.onResume()
+
     }
 
 }
