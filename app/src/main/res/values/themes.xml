@@ -5,10 +5,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="themeColorPrimary">@color/colorPrimary</item>
         <item name="chipStyle">@style/MyChipsStyle</item>
+        <item name="bottomNavigationStyle">@style/MyBottomNavigationStyle</item>
 
     </style>
 
     <style name="Theme.MaterialYou" parent="Base.Theme.MaterialYou" />
+
+    <style name="MyBottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextColor">@color/indigo_dark</item>
+        <item name="itemIconTint">@color/teal_700</item>
+    </style>
 
     <style name="MyChipsShapeAppearanceSmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">cut</item>

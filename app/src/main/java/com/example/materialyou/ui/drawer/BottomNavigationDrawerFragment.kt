@@ -24,9 +24,9 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.navigation_one -> Toast.makeText(context, "1",
+                R.id.navigation_one -> Toast.makeText(context, getString(R.string.one),
                     Toast.LENGTH_SHORT).show()
-                R.id.navigation_two -> Toast.makeText(context, "2",
+                R.id.navigation_two -> Toast.makeText(context, getString(R.string.two),
                     Toast.LENGTH_SHORT).show()
             }
             true

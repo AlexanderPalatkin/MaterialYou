@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MaterialYou"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MaterialYou">
@@ -29,6 +29,12 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.viewpager.ViewPagerActivity">
+        </activity>
+        <activity
+            android:name=".ui.drawer.BottomNavigationActivity">
         </activity>
         <meta-data
             android:name="preloaded_fonts"

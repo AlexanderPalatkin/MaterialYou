@@ -1,27 +1,19 @@
 package com.example.materialyou.ui.settings
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import coil.load
-import com.example.materialyou.MainActivity
+import androidx.fragment.app.FragmentManager
+import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.R
-import com.example.materialyou.databinding.FragmentPictureOfTheDayBinding
 import com.example.materialyou.databinding.FragmentSettingsBinding
-import com.example.materialyou.ui.drawer.BottomNavigationDrawerFragment
-import com.example.materialyou.utils.WIKI_URL
-import java.time.LocalDate
+import com.example.materialyou.utils.KEY_CURRENT_THEME_LOCAL
+import com.example.materialyou.utils.KEY_SP_LOCAL
 
 class SettingsFragment : Fragment() {
 
-    private val KEY_SP_LOCAL = "sp_local"
-    private val KEY_CURRENT_THEME_LOCAL = "current_theme_local"
     private val themePink = R.style.PinkTheme
     private val themeIndigo = R.style.IndigoTheme
 
@@ -38,12 +30,11 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val context: Context = ContextThemeWrapper(activity, getRealStyleLocal(getCurrentThemeLocal()))
+        val context: Context = ContextThemeWrapper(parentActivity, getRealStyleLocal(getCurrentThemeLocal()))
         val localInflater = inflater.cloneInContext(context)
         _binding = FragmentSettingsBinding.inflate(localInflater)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,6 +47,7 @@ class SettingsFragment : Fragment() {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, SettingsFragment.newInstance())
+                .addToBackStack(null)
                 .commit()
         }
         binding.settingsChipIndigo.setOnClickListener {
@@ -63,20 +55,16 @@ class SettingsFragment : Fragment() {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, SettingsFragment.newInstance())
+                .addToBackStack(null)
                 .commit()
         }
 
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+        binding.floatingActionButtonSettings.setOnClickListener {
+            parentFragmentManager.popBackStack("pictureOfTheDayFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
 
-    companion object {
-        fun newInstance() = SettingsFragment()
     }
-
 
     private fun setCurrentThemeLocal(currentTheme: Int){
         val sharedPreferences =
@@ -98,6 +86,15 @@ class SettingsFragment : Fragment() {
             themeIndigo -> R.style.IndigoTheme
             else -> 0
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        fun newInstance() = SettingsFragment()
     }
 
 }

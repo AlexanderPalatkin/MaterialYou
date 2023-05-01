@@ -1,4 +1,17 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fr_picture_of_the_day_text_input_padding">10dp</dimen>
+    <dimen name="custom_tab_drawable_padding">10dp</dimen>
+    <dimen name="custom_tab_text_size">16sp</dimen>
+    <dimen name="bottom_nav_margin_start">8dp</dimen>
+    <dimen name="bottom_nav_margin_top">8dp</dimen>
+    <dimen name="bottom_nav_margin_end">8dp</dimen>
+    <dimen name="fragment_tab_indicator_linear_margin_bottom">20dp</dimen>
+    <dimen name="fragment_tab_indicator_image_margin_start">7dp</dimen>
+    <dimen name="fragment_tab_indicator_image_margin_left">7dp</dimen>
+    <dimen name="fragment_tab_indicator_image_margin_end">7dp</dimen>
+    <dimen name="fragment_tab_indicator_image_margin_right">7dp</dimen>
+    <dimen name="fragment_picture_of_the_day_padding_start">10dp</dimen>
+    <dimen name="fragment_picture_of_the_day_padding_end">10dp</dimen>
+    <dimen name="fab_settings_margin">16dp</dimen>
 </resources>
