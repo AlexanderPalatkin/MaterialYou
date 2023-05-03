@@ -30,6 +30,11 @@ class PictureOfTheDayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        when(getCurrentThemeLocal()) {
+            R.style.PinkTheme -> requireActivity().setTheme(R.style.PinkTheme)
+            R.style.IndigoTheme -> requireActivity().setTheme(R.style.IndigoTheme)
+        }
+
         _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -151,15 +156,6 @@ class PictureOfTheDayFragment : Fragment() {
         val sharedPreferences =
             requireActivity().getSharedPreferences(KEY_SP_LOCAL, AppCompatActivity.MODE_PRIVATE)
         return sharedPreferences.getInt(KEY_CURRENT_THEME_LOCAL, -1)
-    }
-
-    override fun onResume() {
-        when(getCurrentThemeLocal()) {
-            R.style.PinkTheme -> requireActivity().setTheme(R.style.PinkTheme)
-            R.style.IndigoTheme -> requireActivity().setTheme(R.style.IndigoTheme)
-        }
-        super.onResume()
-
     }
 
 }
