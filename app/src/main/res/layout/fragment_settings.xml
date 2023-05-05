@@ -26,6 +26,18 @@
             android:layout_height="wrap_content"
             android:text="@string/indigo"
             tools:ignore="TouchTargetSizeCheck" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/settingsChipOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/orange"
+            tools:ignore="TouchTargetSizeCheck" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/settingsChipGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/green"
+            tools:ignore="TouchTargetSizeCheck" />
 
 
     </com.google.android.material.chip.ChipGroup>

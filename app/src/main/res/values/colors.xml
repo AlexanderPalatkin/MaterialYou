@@ -13,10 +13,17 @@
     <color name="indigo">#6002ee</color>
     <color name="indigo_dark">#0000ba</color>
     <color name="indigo_light">#9c47ff</color>
-    <color name="green">#FF03DAC5</color>
     <color name="pink">#e040fb</color>
     <color name="pink_dark">#aa00c7</color>
     <color name="pink_light">#ff79ff</color>
     <color name="colorAccentAlfa">#6603DAC5</color>
+    <color name="orange">#F45236</color>
+    <color name="brown">#682206</color>
+    <color name="orange_light">#FB7F3C</color>
+    <color name="orange_bright">#FF5900</color>
+    <color name="green">#046E1E</color>
+    <color name="green_dark">#133A02</color>
+    <color name="green_light">#62FF0E</color>
+    <color name="green_acid">#92E60B</color>
 
 </resources>

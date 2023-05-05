@@ -33,6 +33,8 @@ class PictureOfTheDayFragment : Fragment() {
         when(getCurrentThemeLocal()) {
             R.style.PinkTheme -> requireActivity().setTheme(R.style.PinkTheme)
             R.style.IndigoTheme -> requireActivity().setTheme(R.style.IndigoTheme)
+            R.style.OrangeTheme -> requireActivity().setTheme(R.style.OrangeTheme)
+            R.style.GreenTheme -> requireActivity().setTheme(R.style.GreenTheme)
         }
 
         _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)

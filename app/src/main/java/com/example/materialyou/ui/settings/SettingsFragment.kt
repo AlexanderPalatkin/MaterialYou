@@ -16,6 +16,8 @@ class SettingsFragment : Fragment() {
 
     private val themePink = R.style.PinkTheme
     private val themeIndigo = R.style.IndigoTheme
+    private val themeOrange = R.style.OrangeTheme
+    private val themeGreen = R.style.GreenTheme
 
     private lateinit var parentActivity: MainActivity
     override fun onAttach(context: Context) {
@@ -41,6 +43,8 @@ class SettingsFragment : Fragment() {
         when(getCurrentThemeLocal()) {
             themePink -> binding.settingsChipPink.isChecked = true
             themeIndigo -> binding.settingsChipIndigo.isChecked = true
+            themeOrange -> binding.settingsChipOrange.isChecked = true
+            themeGreen -> binding.settingsChipGreen.isChecked = true
         }
         binding.settingsChipPink.setOnClickListener {
             setCurrentThemeLocal(themePink)
@@ -58,7 +62,22 @@ class SettingsFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
+        binding.settingsChipOrange.setOnClickListener {
+            setCurrentThemeLocal(themeOrange)
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, SettingsFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
+        binding.settingsChipGreen.setOnClickListener {
+            setCurrentThemeLocal(themeGreen)
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, SettingsFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
 
         binding.floatingActionButtonSettings.setOnClickListener {
             parentFragmentManager.popBackStack("pictureOfTheDayFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
@@ -84,6 +103,8 @@ class SettingsFragment : Fragment() {
         return when(currentTheme) {
             themePink -> R.style.PinkTheme
             themeIndigo -> R.style.IndigoTheme
+            themeOrange -> R.style.OrangeTheme
+            themeGreen -> R.style.GreenTheme
             else -> 0
         }
     }
