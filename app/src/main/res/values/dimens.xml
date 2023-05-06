@@ -14,4 +14,9 @@
     <dimen name="fragment_picture_of_the_day_padding_start">10dp</dimen>
     <dimen name="fragment_picture_of_the_day_padding_end">10dp</dimen>
     <dimen name="fab_settings_margin">16dp</dimen>
+    <dimen name="fragment_settings_chips_circle_radius">90dp</dimen>
+    <dimen name="fr_picture_of_the_day_motion_padding_start">10dp</dimen>
+    <dimen name="fr_picture_of_the_day_motion_padding_end">10dp</dimen>
+    <dimen name="fr_picture_of_the_day_wiki_button_margin_end">18dp</dimen>
+    <dimen name="fr_picture_of_the_day_wiki_button_margin_bottom">16dp</dimen>
 </resources>

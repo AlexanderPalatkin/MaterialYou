@@ -11,7 +11,7 @@
         android:text="@string/pink"
         app:layout_constraintCircle="@+id/floating_action_button_settings"
         app:layout_constraintCircleAngle="315"
-        app:layout_constraintCircleRadius="90dp"
+        app:layout_constraintCircleRadius="@dimen/fragment_settings_chips_circle_radius"
         tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
     <com.google.android.material.chip.Chip
@@ -21,7 +21,7 @@
         android:text="@string/indigo"
         app:layout_constraintCircle="@+id/floating_action_button_settings"
         app:layout_constraintCircleAngle="45"
-        app:layout_constraintCircleRadius="90dp"
+        app:layout_constraintCircleRadius="@dimen/fragment_settings_chips_circle_radius"
         tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
     <com.google.android.material.chip.Chip
@@ -31,7 +31,7 @@
         android:text="@string/orange"
         app:layout_constraintCircle="@+id/floating_action_button_settings"
         app:layout_constraintCircleAngle="135"
-        app:layout_constraintCircleRadius="90dp"
+        app:layout_constraintCircleRadius="@dimen/fragment_settings_chips_circle_radius"
         tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
     <com.google.android.material.chip.Chip
@@ -41,7 +41,7 @@
         android:text="@string/green"
         app:layout_constraintCircle="@+id/floating_action_button_settings"
         app:layout_constraintCircleAngle="225"
-        app:layout_constraintCircleRadius="90dp"
+        app:layout_constraintCircleRadius="@dimen/fragment_settings_chips_circle_radius"
         tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

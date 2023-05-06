@@ -25,5 +25,6 @@
     <color name="green_dark">#133A02</color>
     <color name="green_light">#62FF0E</color>
     <color name="green_acid">#92E60B</color>
+    <color name="fabTint">#FFFFFF</color>
 
 </resources>
