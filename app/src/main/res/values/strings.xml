@@ -30,4 +30,8 @@
     <string name="menu_item_text_earth">Earth</string>
     <string name="menu_item_text_mars">Mars</string>
     <string name="menu_item_text_weather">Weather</string>
+    <string name="show">show</string>
+    <string name="orange">Orange</string>
+    <string name="default_theme">Default</string>
+    <string name="green">Green</string>
 </resources>
