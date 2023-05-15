@@ -89,6 +89,54 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollViewExplanations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/imageView"
+            app:layout_constraintLeft_toLeftOf="@id/imageView"
+            app:layout_constraintRight_toRightOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@id/tvExplanationTitle">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvExplanation"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                tools:text="From afar, the whole thing looks like an eagle.  A closer look at the
+                 Eagle Nebula, however, shows the bright region is actually a window into the center
+                  of a larger dark shell of dust.  Through this window, a brightly-lit workshop
+                  appears where a whole open cluster of stars is being formed.  In this cavity,
+                  tall pillars and round globules of dark dust and cold molecular gas remain where
+                  stars are still forming.  Already visible are several young bright blue stars
+                  whose light and winds are burning away and pushing back the remaining filaments
+                  and walls of gas and dust.  The Eagle emission nebula, tagged M16, lies about
+                  6500 light years away, spans about 20 light-years, and is visible with binoculars
+                   toward the constellation of the Serpent (Serpens).  This picture involved long
+                    and deep exposures and combined three specific emitted colors emitted by sulfur
+                     (colored as yellow), hydrogen (red), and oxygen (blue). " />
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvExplanationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/explanations_title"
+            android:text="M16: Eagle Nebula Deep Field"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/imageView"
+            app:layout_constraintTop_toTopOf="@id/imageView" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonExplain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:text="@string/explanation"
+            app:layout_constraintBottom_toBottomOf="@id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar

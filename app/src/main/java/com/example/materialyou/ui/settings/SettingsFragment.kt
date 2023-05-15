@@ -52,17 +52,17 @@ class SettingsFragment : Fragment() {
 
 
         binding.floatingActionButtonSettings.setOnClickListener {
-            val settingAutoTransaction = TransitionSet()
+            val settingAutoTransition = TransitionSet()
             val fade = Slide(Gravity.START)
-            settingAutoTransaction.addTransition(fade)
-            settingAutoTransaction.addListener(object : TransitionListenerAdapter() {
+            settingAutoTransition.addTransition(fade)
+            settingAutoTransition.addListener(object : TransitionListenerAdapter() {
                 override fun onTransitionEnd(transition: Transition) {
                     transition.removeListener(this)
                     parentFragmentManager.popBackStack("pictureOfTheDayFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }
             })
 
-            TransitionManager.beginDelayedTransition(binding.root, settingAutoTransaction)
+            TransitionManager.beginDelayedTransition(binding.root, settingAutoTransition)
             binding.settingsChipPink.visibility = View.INVISIBLE
             binding.settingsChipIndigo.visibility = View.INVISIBLE
             binding.settingsChipOrange.visibility = View.INVISIBLE

@@ -1,6 +1,5 @@
 package com.example.materialyou.ui.picture
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.R
-import com.example.materialyou.databinding.FragmentPictureOfTheDayBinding
+import com.example.materialyou.databinding.FragmentPictureOfTheDayStartBinding
+import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.ui.drawer.BottomNavigationActivity
 import com.example.materialyou.ui.drawer.BottomNavigationDrawerFragment
 import com.example.materialyou.ui.settings.SettingsFragment
@@ -23,8 +22,10 @@ import com.example.materialyou.utils.WIKI_URL
 import java.time.LocalDate
 
 class PictureOfTheDayFragment : Fragment() {
-    private var _binding: FragmentPictureOfTheDayBinding? = null
+    private var _binding: FragmentPictureOfTheDayStartBinding? = null
     private val binding get() = _binding!!
+
+    private var buttonExplainIsChecked = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,7 @@ class PictureOfTheDayFragment : Fragment() {
             R.style.GreenTheme -> requireActivity().setTheme(R.style.GreenTheme)
         }
 
-        _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
+        _binding = FragmentPictureOfTheDayStartBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,7 +47,6 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getLiveData().observe(
@@ -61,24 +61,40 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun loadChipsClickListeners() {
+        val duration = 2000L
+
         binding.chipToday.setOnClickListener {
             viewModel.sendRequest(getString(R.string.today))
-            Toast.makeText(requireContext(), getString(R.string.today), Toast.LENGTH_SHORT).show()
+            binding.imageView.animate().alpha(1f).duration = duration
+            binding.tvExplanation.animate().alpha(0f).duration = duration
+            binding.buttonExplain.animate().alpha(1f).duration = duration
         }
+
         binding.chipYesterday.setOnClickListener {
             val yesterday = LocalDate.now().minusDays(1).toString()
             viewModel.sendRequest(yesterday)
-            Toast.makeText(requireContext(), getString(R.string.yesterday), Toast.LENGTH_SHORT)
-                .show()
+            binding.imageView.animate().alpha(1f).duration = duration
+            binding.tvExplanation.animate().alpha(0f).duration = duration
+            binding.buttonExplain.animate().alpha(1f).duration = duration
         }
+
         binding.chipDayBeforeYesterday.setOnClickListener {
             val dayBeforeYesterday = LocalDate.now().minusDays(2).toString()
             viewModel.sendRequest(dayBeforeYesterday)
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.day_before_yesterday),
-                Toast.LENGTH_SHORT
-            ).show()
+            binding.imageView.animate().alpha(1f).duration = duration
+            binding.tvExplanation.animate().alpha(0f).duration = duration
+            binding.buttonExplain.animate().alpha(1f).duration = duration
+        }
+
+        binding.buttonExplain.setOnClickListener {
+            buttonExplainIsChecked = !buttonExplainIsChecked
+            if (buttonExplainIsChecked) {
+                binding.imageView.animate().alpha(0.2f).duration = duration
+                binding.tvExplanation.animate().alpha(1f).duration = duration
+            } else {
+                binding.imageView.animate().alpha(1f).duration = duration
+                binding.tvExplanation.animate().alpha(0f).duration = duration
+            }
         }
     }
 
@@ -88,7 +104,6 @@ class PictureOfTheDayFragment : Fragment() {
                 data =
                     Uri.parse("${WIKI_URL}${binding.inputEditSearch.text.toString()}")
             })
-
         }
     }
 
@@ -100,10 +115,14 @@ class PictureOfTheDayFragment : Fragment() {
             is AppState.Loading -> {}
             is AppState.Success -> {
                 val url = data.pictureOfTheDayResponseData.url
-                if (url.isEmpty()) {
+                val titleText = data.pictureOfTheDayResponseData.title
+                val explanationText = data.pictureOfTheDayResponseData.explanation
+                if (url.isEmpty() || titleText.isEmpty()) {
                     toast(getString(R.string.link_is_empty))
                 } else {
                     binding.imageView.load(url)
+                    binding.tvExplanationTitle.text = titleText
+                    binding.tvExplanation.text = explanationText
                 }
             }
         }
@@ -159,5 +178,6 @@ class PictureOfTheDayFragment : Fragment() {
             requireActivity().getSharedPreferences(KEY_SP_LOCAL, AppCompatActivity.MODE_PRIVATE)
         return sharedPreferences.getInt(KEY_CURRENT_THEME_LOCAL, -1)
     }
+
 
 }
