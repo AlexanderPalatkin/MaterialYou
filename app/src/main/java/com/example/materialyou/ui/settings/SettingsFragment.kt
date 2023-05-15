@@ -6,6 +6,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.transition.*
 import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.R
 import com.example.materialyou.databinding.FragmentSettingsBinding
@@ -46,6 +47,28 @@ class SettingsFragment : Fragment() {
             themeOrange -> binding.settingsChipOrange.isChecked = true
             themeGreen -> binding.settingsChipGreen.isChecked = true
         }
+
+
+
+
+        binding.floatingActionButtonSettings.setOnClickListener {
+            val settingAutoTransaction = TransitionSet()
+            val fade = Slide(Gravity.START)
+            settingAutoTransaction.addTransition(fade)
+            settingAutoTransaction.addListener(object : TransitionListenerAdapter() {
+                override fun onTransitionEnd(transition: Transition) {
+                    transition.removeListener(this)
+                    parentFragmentManager.popBackStack("pictureOfTheDayFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                }
+            })
+
+            TransitionManager.beginDelayedTransition(binding.root, settingAutoTransaction)
+            binding.settingsChipPink.visibility = View.INVISIBLE
+            binding.settingsChipIndigo.visibility = View.INVISIBLE
+            binding.settingsChipOrange.visibility = View.INVISIBLE
+            binding.settingsChipGreen.visibility = View.INVISIBLE
+        }
+
         binding.settingsChipPink.setOnClickListener {
             setCurrentThemeLocal(themePink)
             requireActivity().supportFragmentManager
@@ -77,10 +100,6 @@ class SettingsFragment : Fragment() {
                 .replace(R.id.container, SettingsFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
-        }
-
-        binding.floatingActionButtonSettings.setOnClickListener {
-            parentFragmentManager.popBackStack("pictureOfTheDayFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
 
     }
@@ -117,5 +136,4 @@ class SettingsFragment : Fragment() {
     companion object {
         fun newInstance() = SettingsFragment()
     }
-
 }
