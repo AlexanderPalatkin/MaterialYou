@@ -30,12 +30,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".ui.viewpager.ViewPagerActivity">
         </activity>
+
         <activity
             android:name=".ui.drawer.BottomNavigationActivity">
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

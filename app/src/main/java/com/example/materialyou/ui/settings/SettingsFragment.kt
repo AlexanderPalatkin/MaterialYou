@@ -6,9 +6,10 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.example.materialyou.ui.MainActivity
+import androidx.transition.*
 import com.example.materialyou.R
 import com.example.materialyou.databinding.FragmentSettingsBinding
+import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.utils.KEY_CURRENT_THEME_LOCAL
 import com.example.materialyou.utils.KEY_SP_LOCAL
 
@@ -46,11 +47,30 @@ class SettingsFragment : Fragment() {
             themeOrange -> binding.settingsChipOrange.isChecked = true
             themeGreen -> binding.settingsChipGreen.isChecked = true
         }
+
+        binding.floatingActionButtonSettings.setOnClickListener {
+            val settingAutoTransition = TransitionSet()
+            val fade = Slide(Gravity.START)
+            settingAutoTransition.addTransition(fade)
+            settingAutoTransition.addListener(object : TransitionListenerAdapter() {
+                override fun onTransitionEnd(transition: Transition) {
+                    transition.removeListener(this)
+                    parentFragmentManager.popBackStack("pictureOfTheDayFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                }
+            })
+
+            TransitionManager.beginDelayedTransition(binding.root, settingAutoTransition)
+            binding.settingsChipPink.visibility = View.INVISIBLE
+            binding.settingsChipIndigo.visibility = View.INVISIBLE
+            binding.settingsChipOrange.visibility = View.INVISIBLE
+            binding.settingsChipGreen.visibility = View.INVISIBLE
+        }
+
         binding.settingsChipPink.setOnClickListener {
             setCurrentThemeLocal(themePink)
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, SettingsFragment.newInstance())
+                .replace(R.id.container, newInstance())
                 .addToBackStack(null)
                 .commit()
         }
@@ -58,7 +78,7 @@ class SettingsFragment : Fragment() {
             setCurrentThemeLocal(themeIndigo)
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, SettingsFragment.newInstance())
+                .replace(R.id.container, newInstance())
                 .addToBackStack(null)
                 .commit()
         }
@@ -66,7 +86,7 @@ class SettingsFragment : Fragment() {
             setCurrentThemeLocal(themeOrange)
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, SettingsFragment.newInstance())
+                .replace(R.id.container, newInstance())
                 .addToBackStack(null)
                 .commit()
         }
@@ -74,13 +94,9 @@ class SettingsFragment : Fragment() {
             setCurrentThemeLocal(themeGreen)
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, SettingsFragment.newInstance())
+                .replace(R.id.container, newInstance())
                 .addToBackStack(null)
                 .commit()
-        }
-
-        binding.floatingActionButtonSettings.setOnClickListener {
-            parentFragmentManager.popBackStack("pictureOfTheDayFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
 
     }
@@ -117,5 +133,4 @@ class SettingsFragment : Fragment() {
     companion object {
         fun newInstance() = SettingsFragment()
     }
-
 }
