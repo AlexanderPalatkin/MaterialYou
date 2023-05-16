@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.transition.*
-import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.R
 import com.example.materialyou.databinding.FragmentSettingsBinding
+import com.example.materialyou.ui.MainActivity
 import com.example.materialyou.utils.KEY_CURRENT_THEME_LOCAL
 import com.example.materialyou.utils.KEY_SP_LOCAL
 
@@ -48,9 +48,6 @@ class SettingsFragment : Fragment() {
             themeGreen -> binding.settingsChipGreen.isChecked = true
         }
 
-
-
-
         binding.floatingActionButtonSettings.setOnClickListener {
             val settingAutoTransition = TransitionSet()
             val fade = Slide(Gravity.START)
@@ -73,7 +70,7 @@ class SettingsFragment : Fragment() {
             setCurrentThemeLocal(themePink)
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, SettingsFragment.newInstance())
+                .replace(R.id.container, newInstance())
                 .addToBackStack(null)
                 .commit()
         }
@@ -81,7 +78,7 @@ class SettingsFragment : Fragment() {
             setCurrentThemeLocal(themeIndigo)
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, SettingsFragment.newInstance())
+                .replace(R.id.container, newInstance())
                 .addToBackStack(null)
                 .commit()
         }
@@ -89,7 +86,7 @@ class SettingsFragment : Fragment() {
             setCurrentThemeLocal(themeOrange)
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, SettingsFragment.newInstance())
+                .replace(R.id.container, newInstance())
                 .addToBackStack(null)
                 .commit()
         }
@@ -97,7 +94,7 @@ class SettingsFragment : Fragment() {
             setCurrentThemeLocal(themeGreen)
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, SettingsFragment.newInstance())
+                .replace(R.id.container, newInstance())
                 .addToBackStack(null)
                 .commit()
         }

@@ -27,11 +27,13 @@ class PictureOfTheDayFragment : Fragment() {
 
     private var buttonExplainIsChecked = false
 
+    private val duration = 2000L
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        when(getCurrentThemeLocal()) {
+        when (getCurrentThemeLocal()) {
             R.style.PinkTheme -> requireActivity().setTheme(R.style.PinkTheme)
             R.style.IndigoTheme -> requireActivity().setTheme(R.style.IndigoTheme)
             R.style.OrangeTheme -> requireActivity().setTheme(R.style.OrangeTheme)
@@ -61,29 +63,19 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun loadChipsClickListeners() {
-        val duration = 2000L
 
         binding.chipToday.setOnClickListener {
             viewModel.sendRequest(getString(R.string.today))
-            binding.imageView.animate().alpha(1f).duration = duration
-            binding.tvExplanation.animate().alpha(0f).duration = duration
-            binding.buttonExplain.animate().alpha(1f).duration = duration
         }
 
         binding.chipYesterday.setOnClickListener {
             val yesterday = LocalDate.now().minusDays(1).toString()
             viewModel.sendRequest(yesterday)
-            binding.imageView.animate().alpha(1f).duration = duration
-            binding.tvExplanation.animate().alpha(0f).duration = duration
-            binding.buttonExplain.animate().alpha(1f).duration = duration
         }
 
         binding.chipDayBeforeYesterday.setOnClickListener {
             val dayBeforeYesterday = LocalDate.now().minusDays(2).toString()
             viewModel.sendRequest(dayBeforeYesterday)
-            binding.imageView.animate().alpha(1f).duration = duration
-            binding.tvExplanation.animate().alpha(0f).duration = duration
-            binding.buttonExplain.animate().alpha(1f).duration = duration
         }
 
         binding.buttonExplain.setOnClickListener {
@@ -108,6 +100,7 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun renderData(data: AppState) {
+
         when (data) {
             is AppState.Error -> {
                 toast(data.error.message)
@@ -120,9 +113,16 @@ class PictureOfTheDayFragment : Fragment() {
                 if (url.isEmpty() || titleText.isEmpty()) {
                     toast(getString(R.string.link_is_empty))
                 } else {
+                    buttonExplainIsChecked = false
+
                     binding.imageView.load(url)
                     binding.tvExplanationTitle.text = titleText
                     binding.tvExplanation.text = explanationText
+
+                    binding.tvExplanationTitle.animate().alpha(1f).duration = duration
+                    binding.imageView.animate().alpha(1f).duration = duration
+                    binding.tvExplanation.animate().alpha(0f).duration = duration
+                    binding.buttonExplain.animate().alpha(1f).duration = duration
                 }
             }
         }
