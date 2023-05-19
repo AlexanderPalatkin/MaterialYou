@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".app.MyApp"
@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialYou"
         tools:targetApi="31">
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -30,14 +31,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
-            android:name=".ui.viewpager.ViewPagerActivity">
-        </activity>
-
+            android:name=".ui.viewpager.ViewPagerActivity"
+            android:exported="false" />
         <activity
-            android:name=".ui.drawer.BottomNavigationActivity">
-        </activity>
+            android:name=".ui.drawer.BottomNavigationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.recycler.RecyclerActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
