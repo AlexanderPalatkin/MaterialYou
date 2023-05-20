@@ -13,28 +13,30 @@ class RecyclerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val data = arrayListOf(
-            Data(Data.TYPE_HEADER, "Header"),
-            Data(Data.TYPE_EARTH, "Earth"),
-            Data(Data.TYPE_EARTH, "Earth"),
-            Data(Data.TYPE_EARTH, "Earth"),
-            Data(Data.TYPE_EARTH, "Earth"),
-            Data(Data.TYPE_EARTH, "Earth"),
-            Data(Data.TYPE_EARTH, "Earth", "Описание"),
-            Data(Data.TYPE_MARS, "Mars", ""),
-            Data(Data.TYPE_EARTH, "Earth"),
-            Data(Data.TYPE_EARTH, "Earth"),
-            Data(Data.TYPE_EARTH, "Earth"),
-            Data(Data.TYPE_MARS, "Mars", null)
+            Pair(Data(Data.TYPE_HEADER, "Header"), false),
+            Pair(Data(Data.TYPE_EARTH, "Earth"), false),
+            Pair(Data(Data.TYPE_EARTH, "Earth", "Описание"), false),
+            Pair(Data(Data.TYPE_MARS, "Mars", ""), false),
+            Pair(Data(Data.TYPE_EARTH, "Earth"), false),
+            Pair(Data(Data.TYPE_EARTH, "Earth"), false),
+            Pair(Data(Data.TYPE_EARTH, "Earth"), false),
+            Pair(Data(Data.TYPE_MARS, "Mars", null), false),
         )
-        binding.recyclerView.adapter = RecyclerActivityAdapter(
-            { data ->
+
+        val adapter = RecyclerActivityAdapter(
+            {
                 Toast.makeText(
-                    this@RecyclerActivity, data.someText,
+                    this@RecyclerActivity, it.someText,
                     Toast.LENGTH_SHORT
                 ).show()
             },
             data
         )
+        binding.recyclerView.adapter = adapter
 
+        binding.recyclerActivityFAB.setOnClickListener {
+            adapter.appendItem()
+            binding.recyclerView.smoothScrollToPosition(adapter.itemCount - 1)
+        }
     }
 }

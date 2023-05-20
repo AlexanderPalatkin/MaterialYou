@@ -9,5 +9,7 @@ data class Data(
         const val TYPE_EARTH = 0
         const val TYPE_MARS = 1
         const val TYPE_HEADER = 2
+        const val ITEM_CLOSE = 0
+        const val ITEM_OPEN = 1
     }
 }
