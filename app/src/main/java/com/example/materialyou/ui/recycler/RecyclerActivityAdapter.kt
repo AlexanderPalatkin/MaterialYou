@@ -1,5 +1,6 @@
 package com.example.materialyou.ui.recycler
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.example.materialyou.ui.recycler.Data.Companion.TYPE_MARS
 class RecyclerActivityAdapter(
     private val onListItemClickListener: OnListItemClickListener,
     private var dataSet: MutableList<Pair<Data, Boolean>>
-) : RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>() {
+) : RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             Data.TYPE_EARTH -> {
@@ -74,7 +75,8 @@ class RecyclerActivityAdapter(
         }
     }
 
-    inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
+    inner class MarsViewHolder(view: View) : BaseViewHolder(view),
+    ItemTouchHelperViewHolder {
         override fun bind(data: Pair<Data, Boolean>) {
             ActivityRecyclerItemMarsBinding.bind(itemView).apply {
                 marsImageView.setOnClickListener {
@@ -87,20 +89,10 @@ class RecyclerActivityAdapter(
                     removeItem()
                 }
                 moveItemUp.setOnClickListener {
-                    layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
-                        dataSet.removeAt(currentPosition).apply {
-                            dataSet.add(currentPosition - 1, this)
-                        }
-                        notifyItemMoved(currentPosition, currentPosition - 1)
-                    }
+                    moveUp()
                 }
                 moveItemDown.setOnClickListener {
-                    layoutPosition.takeIf { it < dataSet.size - 1 }?.also { currentPosition ->
-                        dataSet.removeAt(currentPosition).apply {
-                            dataSet.add(currentPosition + 1, this)
-                        }
-                        notifyItemMoved(currentPosition, currentPosition + 1)
-                    }
+                    moveDown()
                 }
                 marsTextView.setOnClickListener {
                     dataSet[layoutPosition] = dataSet[layoutPosition].let {
@@ -113,6 +105,24 @@ class RecyclerActivityAdapter(
             }
         }
 
+        private fun moveUp(){
+            layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
+                dataSet.removeAt(currentPosition).apply {
+                    dataSet.add(currentPosition - 1, this)
+                }
+                notifyItemMoved(currentPosition, currentPosition - 1)
+            }
+        }
+
+        private fun moveDown(){
+            layoutPosition.takeIf { it < dataSet.size - 1 }?.also { currentPosition ->
+                dataSet.removeAt(currentPosition).apply {
+                    dataSet.add(currentPosition + 1, this)
+                }
+                notifyItemMoved(currentPosition, currentPosition + 1)
+            }
+        }
+
         private fun addItem() {
             dataSet.add(layoutPosition + 1, generateItem())
             notifyItemInserted(layoutPosition + 1)
@@ -121,6 +131,14 @@ class RecyclerActivityAdapter(
         private fun removeItem() {
             dataSet.removeAt(layoutPosition)
             notifyItemRemoved(layoutPosition)
+        }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
         }
     }
 
@@ -132,5 +150,20 @@ class RecyclerActivityAdapter(
                 }
             }
         }
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        if (toPosition > 0) {
+            dataSet.removeAt(fromPosition).apply {
+                dataSet.add(if (toPosition > fromPosition) toPosition - 1 else toPosition,
+                    this)
+            }
+            notifyItemMoved(fromPosition, toPosition)
+        }
+    }
+
+    override fun onItemDismiss(position: Int) {
+        dataSet.removeAt(position)
+        notifyItemRemoved(position)
     }
 }

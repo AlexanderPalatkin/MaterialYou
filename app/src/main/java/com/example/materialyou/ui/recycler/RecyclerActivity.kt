@@ -3,6 +3,7 @@ package com.example.materialyou.ui.recycler
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.materialyou.databinding.ActivityRecyclerBinding
 
 class RecyclerActivity : AppCompatActivity() {
@@ -14,11 +15,7 @@ class RecyclerActivity : AppCompatActivity() {
 
         val data = arrayListOf(
             Pair(Data(Data.TYPE_HEADER, "Header"), false),
-            Pair(Data(Data.TYPE_EARTH, "Earth"), false),
-            Pair(Data(Data.TYPE_EARTH, "Earth", "Описание"), false),
             Pair(Data(Data.TYPE_MARS, "Mars", ""), false),
-            Pair(Data(Data.TYPE_EARTH, "Earth"), false),
-            Pair(Data(Data.TYPE_EARTH, "Earth"), false),
             Pair(Data(Data.TYPE_EARTH, "Earth"), false),
             Pair(Data(Data.TYPE_MARS, "Mars", null), false),
         )
@@ -38,5 +35,8 @@ class RecyclerActivity : AppCompatActivity() {
             adapter.appendItem()
             binding.recyclerView.smoothScrollToPosition(adapter.itemCount - 1)
         }
+        ItemTouchHelper(ItemTouchHelperCallback(adapter))
+            .attachToRecyclerView(binding.recyclerView)
+
     }
 }
