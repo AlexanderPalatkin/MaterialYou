@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materialyou.databinding.ActivityRecyclerItemEarthBinding
 import com.example.materialyou.databinding.ActivityRecyclerItemHeaderBinding
@@ -16,6 +17,15 @@ class RecyclerActivityAdapter(
     private var dataSet: MutableList<Pair<Data, Boolean>>,
     private val onStartDragListener: OnStartDragListener
 ) : RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
+
+    fun setItems(newItems: List<Pair<Data, Boolean>>) {
+        val result = DiffUtil.calculateDiff(DiffUtilCallback(dataSet, newItems))
+        result.dispatchUpdatesTo(this)
+        dataSet.clear()
+        dataSet.addAll(newItems)
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             Data.TYPE_EARTH -> {
@@ -47,6 +57,27 @@ class RecyclerActivityAdapter(
         holder.bind(dataSet[position])
     }
 
+    override fun onBindViewHolder(
+        holder: BaseViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty())
+            super.onBindViewHolder(holder, position, payloads)
+        else {
+            val combinedChange =
+                createCombinedPayload(payloads as List<Change<Pair<Data, Boolean>>>)
+            val oldData = combinedChange.oldData
+            val newData = combinedChange.newData
+            if (newData.first.someText != oldData.first.someText) {
+                ActivityRecyclerItemMarsBinding.bind(holder.itemView).marsTextView.text =
+                    newData.first.someText
+            }
+
+        }
+    }
+
+
     override fun getItemCount(): Int {
         return dataSet.size
     }
@@ -55,12 +86,12 @@ class RecyclerActivityAdapter(
         return dataSet[position].first.type
     }
 
-    fun appendItem() {
-        dataSet.add(generateItem())
-        notifyItemInserted(itemCount - 1)
-    }
+        fun appendItem() {
+            dataSet.add(generateItem())
+            notifyItemInserted(itemCount - 1)
+        }
 
-    private fun generateItem() = Pair(Data(TYPE_MARS, "New Mars"), false)
+    private fun generateItem() = Pair(Data(type = TYPE_MARS, someText = "New Mars"), false)
 
     abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         abstract fun bind(data: Pair<Data, Boolean>)
@@ -78,7 +109,7 @@ class RecyclerActivityAdapter(
     }
 
     inner class MarsViewHolder(view: View) : BaseViewHolder(view),
-    ItemTouchHelperViewHolder {
+        ItemTouchHelperViewHolder {
         override fun bind(data: Pair<Data, Boolean>) {
             ActivityRecyclerItemMarsBinding.bind(itemView).apply {
                 marsImageView.setOnClickListener {
@@ -115,7 +146,7 @@ class RecyclerActivityAdapter(
             }
         }
 
-        private fun moveUp(){
+        private fun moveUp() {
             layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
                 dataSet.removeAt(currentPosition).apply {
                     dataSet.add(currentPosition - 1, this)
@@ -124,7 +155,7 @@ class RecyclerActivityAdapter(
             }
         }
 
-        private fun moveDown(){
+        private fun moveDown() {
             layoutPosition.takeIf { it < dataSet.size - 1 }?.also { currentPosition ->
                 dataSet.removeAt(currentPosition).apply {
                     dataSet.add(currentPosition + 1, this)
@@ -165,8 +196,10 @@ class RecyclerActivityAdapter(
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
         if (toPosition > 0) {
             dataSet.removeAt(fromPosition).apply {
-                dataSet.add(if (toPosition > fromPosition) toPosition - 1 else toPosition,
-                    this)
+                dataSet.add(
+                    if (toPosition > fromPosition) toPosition - 1 else toPosition,
+                    this
+                )
             }
             notifyItemMoved(fromPosition, toPosition)
         }
