@@ -2,6 +2,7 @@ package com.example.materialyou.ui.recycler
 
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,8 @@ import com.example.materialyou.ui.recycler.Data.Companion.TYPE_MARS
 
 class RecyclerActivityAdapter(
     private val onListItemClickListener: OnListItemClickListener,
-    private var dataSet: MutableList<Pair<Data, Boolean>>
+    private var dataSet: MutableList<Pair<Data, Boolean>>,
+    private val onStartDragListener: OnStartDragListener
 ) : RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
@@ -102,6 +104,14 @@ class RecyclerActivityAdapter(
                 }
                 marsDescriptionTextView.visibility =
                     if (data.second) View.VISIBLE else View.GONE
+
+                dragHandleImageView.setOnTouchListener { v, event ->
+                    if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                        onStartDragListener.onStartDrag(this@MarsViewHolder)
+                    }
+                    false
+
+                }
             }
         }
 
