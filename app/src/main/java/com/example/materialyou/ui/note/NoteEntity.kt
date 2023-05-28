@@ -1,10 +1,10 @@
 package com.example.materialyou.ui.note
 
 data class NoteEntity(
-    var id: Int = 0,
     val type: Int = TYPE_NOTE,
-    val noteTitle: String,
-    var noteDescription: String
+    val noteTitle: String = "",
+    var noteDescription: String = "",
+    var noteDescriptionVisibility: Boolean = false
 ) {
     companion object {
         const val TYPE_HEADER = 0

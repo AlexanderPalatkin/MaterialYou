@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.materialyou.R
 import com.example.materialyou.databinding.BottomNavigationLayoutBinding
+import com.example.materialyou.ui.note.NoteActivity
 import com.example.materialyou.ui.recycler.RecyclerActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -42,7 +43,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                         startActivity(
                             Intent(
                                 it,
-                                RecyclerActivity::class.java
+                                NoteActivity::class.java
                             )
                         )
                     }

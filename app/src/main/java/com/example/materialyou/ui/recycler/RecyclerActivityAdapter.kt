@@ -86,10 +86,10 @@ class RecyclerActivityAdapter(
         return dataSet[position].first.type
     }
 
-        fun appendItem() {
-            dataSet.add(generateItem())
-            notifyItemInserted(itemCount - 1)
-        }
+    fun appendItem() {
+        dataSet.add(generateItem())
+        notifyItemInserted(itemCount - 1)
+    }
 
     private fun generateItem() = Pair(Data(type = TYPE_MARS, someText = "New Mars"), false)
 
