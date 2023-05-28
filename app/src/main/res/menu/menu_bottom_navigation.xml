@@ -5,10 +5,10 @@
         <item
             android:id="@+id/navigation_one"
             android:icon="@drawable/ic_archive"
-            android:title="@string/nav_bottom_menu_item_first" />
+            android:title="@string/test" />
         <item
             android:id="@+id/navigation_two"
-            android:icon="@drawable/ic_send"
-            android:title="@string/nav_bottom_menu_item_second" />
+            android:icon="@drawable/ic_baseline_edit_note_24"
+            android:title="@string/notebook" />
     </group>
 </menu>

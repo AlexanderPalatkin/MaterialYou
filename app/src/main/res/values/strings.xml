@@ -35,4 +35,9 @@
     <string name="default_theme">Default</string>
     <string name="green">Green</string>
     <string name="explanation">explanation</string>
+    <string name="note_search">Найти в заметках</string>
+    <string name="note_title">Заголовок</string>
+    <string name="description">Описание</string>
+    <string name="test">test</string>
+    <string name="notebook">Notebook</string>
 </resources>

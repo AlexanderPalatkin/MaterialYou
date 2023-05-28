@@ -19,4 +19,13 @@
     <dimen name="fr_picture_of_the_day_motion_padding_end">10dp</dimen>
     <dimen name="fr_picture_of_the_day_wiki_button_margin_end">18dp</dimen>
     <dimen name="fr_picture_of_the_day_wiki_button_margin_bottom">16dp</dimen>
+    <dimen name="fr_note_padding_tv_search">10dp</dimen>
+    <dimen name="margin_image_view_header_favourite">10dp</dimen>
+    <dimen name="layout_width_iv_note_item_title">80dp</dimen>
+    <dimen name="layout_height_iv_note_item_title">80dp</dimen>
+    <dimen name="text_size_et_note_item_title">35sp</dimen>
+    <dimen name="layout_margin_iv_note_item_description_open_close">10dp</dimen>
+    <dimen name="layout_margin_iv_note_item_favourite">10dp</dimen>
+    <dimen name="layout_margin_iv_note_item_remove">10dp</dimen>
+    <dimen name="padding_tv_note_item_description">10dp</dimen>
 </resources>

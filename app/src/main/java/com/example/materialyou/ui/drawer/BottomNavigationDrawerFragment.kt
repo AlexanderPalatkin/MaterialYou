@@ -38,10 +38,14 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                     }
                 }
                 R.id.navigation_two ->
-                    Toast.makeText(
-                        context, getString(R.string.two),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    activity?.let {
+                        startActivity(
+                            Intent(
+                                it,
+                                RecyclerActivity::class.java
+                            )
+                        )
+                    }
             }
             dismiss()
             true
