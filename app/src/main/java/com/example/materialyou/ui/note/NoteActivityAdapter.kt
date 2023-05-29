@@ -10,9 +10,13 @@ import com.example.materialyou.databinding.ActivityNoteRecyclerItemBinding
 import com.example.materialyou.databinding.ActivityNoteRecyclerItemHeaderBinding
 
 class NoteActivityAdapter(
-    private var noteList: MutableList<NoteEntity>
+    private var noteList: MutableList<NoteEntity> = mutableListOf()
 ) : RecyclerView.Adapter<NoteActivityAdapter.BaseNoteViewHolder>(), NoteItemTouchHelperAdapter {
 
+    fun setNoteItems(newNoteList: List<NoteEntity>) {
+        noteList.addAll(newNoteList)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -60,20 +64,40 @@ class NoteActivityAdapter(
         }
     }
 
-    inner class NoteViewHolder(view: View) : NoteActivityAdapter.BaseNoteViewHolder(view), NoteItemTouchHelperViewHolder {
+    inner class NoteViewHolder(view: View) : NoteActivityAdapter.BaseNoteViewHolder(view),
+        NoteItemTouchHelperViewHolder {
         override fun bind(noteEntity: NoteEntity) {
             ActivityNoteRecyclerItemBinding.bind(itemView).apply {
+
+                etNoteItemTitle.setText(noteEntity.noteTitle)
+                etNoteItemDescription.setText(noteEntity.noteDescription)
 
                 ivNoteItemRemove.setOnClickListener {
                     removeNoteItem()
                 }
 
-                ivNoteItemDescriptionOpenClose.setOnClickListener {
+                ivNoteItemFavourite.setOnClickListener {
                     noteList[layoutPosition] = noteList[layoutPosition].let {
-                        NoteEntity(
-                            type = it.type,
-                            noteTitle = it.noteTitle,
-                            noteDescription = it.noteDescription,
+                        it.copy(
+                            noteTitle = etNoteItemTitle.text.toString(),
+                            noteDescription = etNoteItemDescription.text.toString(),
+                            favourite = !it.favourite
+                        )
+                    }
+                    notifyItemChanged(layoutPosition)
+                }
+                if (noteEntity.favourite) {
+                    ivNoteItemFavourite.setImageResource(R.drawable.ic_baseline_favorite_filled_24)
+                } else {
+                    ivNoteItemFavourite.setImageResource(R.drawable.ic_baseline_favorite_outlined_24)
+                }
+
+                ivNoteItemDescriptionOpenClose.setOnClickListener {
+                    noteEntity.noteTitle = etNoteItemTitle.text.toString()
+                    noteList[layoutPosition] = noteList[layoutPosition].let {
+                        it.copy(
+                            noteTitle = etNoteItemTitle.text.toString(),
+                            noteDescription = etNoteItemDescription.text.toString(),
                             noteDescriptionVisibility = !it.noteDescriptionVisibility
                         )
                     }
@@ -82,10 +106,10 @@ class NoteActivityAdapter(
                 }
                 if (noteEntity.noteDescriptionVisibility) {
                     ivNoteItemDescriptionOpenClose.setImageResource(R.drawable.ic_baseline_keyboard_double_arrow_up_32)
-                    tvNoteItemDescription.visibility = View.VISIBLE
+                    etNoteItemDescription.visibility = View.VISIBLE
                 } else {
                     ivNoteItemDescriptionOpenClose.setImageResource(R.drawable.ic_baseline_keyboard_double_arrow_down_32)
-                    tvNoteItemDescription.visibility = View.GONE
+                    etNoteItemDescription.visibility = View.GONE
                 }
 
 

@@ -8,7 +8,7 @@ import com.example.materialyou.databinding.ActivityNoteBinding
 class NoteActivity : AppCompatActivity() {
     lateinit var binding: ActivityNoteBinding
     lateinit var noteItemTouchHelper: ItemTouchHelper
-    private lateinit var adapter: NoteActivityAdapter
+    private val adapter = NoteActivityAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,12 +19,8 @@ class NoteActivity : AppCompatActivity() {
             NoteEntity(type = NoteEntity.TYPE_HEADER)
         )
 
-        adapter = NoteActivityAdapter(
-
-            noteList
-        )
-
         binding.recyclerNoteView.adapter = adapter
+        adapter.setNoteItems(noteList)
 
         binding.noteActivityFAB.setOnClickListener {
             adapter.appendNoteItem()
