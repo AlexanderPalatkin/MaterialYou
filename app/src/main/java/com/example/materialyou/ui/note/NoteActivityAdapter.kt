@@ -1,15 +1,17 @@
 package com.example.materialyou.ui.note
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.materialyou.R
 import com.example.materialyou.databinding.ActivityNoteRecyclerItemBinding
 import com.example.materialyou.databinding.ActivityNoteRecyclerItemHeaderBinding
 
 class NoteActivityAdapter(
     private var noteList: MutableList<NoteEntity>
-) : RecyclerView.Adapter<NoteActivityAdapter.BaseNoteViewHolder>() {
+) : RecyclerView.Adapter<NoteActivityAdapter.BaseNoteViewHolder>(), NoteItemTouchHelperAdapter {
 
 
     override fun onCreateViewHolder(
@@ -58,11 +60,49 @@ class NoteActivityAdapter(
         }
     }
 
-    inner class NoteViewHolder(view: View) : NoteActivityAdapter.BaseNoteViewHolder(view) {
+    inner class NoteViewHolder(view: View) : NoteActivityAdapter.BaseNoteViewHolder(view), NoteItemTouchHelperViewHolder {
         override fun bind(noteEntity: NoteEntity) {
             ActivityNoteRecyclerItemBinding.bind(itemView).apply {
 
+                ivNoteItemRemove.setOnClickListener {
+                    removeNoteItem()
+                }
+
+                ivNoteItemDescriptionOpenClose.setOnClickListener {
+                    noteList[layoutPosition] = noteList[layoutPosition].let {
+                        NoteEntity(
+                            type = it.type,
+                            noteTitle = it.noteTitle,
+                            noteDescription = it.noteDescription,
+                            noteDescriptionVisibility = !it.noteDescriptionVisibility
+                        )
+                    }
+
+                    notifyItemChanged(layoutPosition)
+                }
+                if (noteEntity.noteDescriptionVisibility) {
+                    ivNoteItemDescriptionOpenClose.setImageResource(R.drawable.ic_baseline_keyboard_double_arrow_up_32)
+                    tvNoteItemDescription.visibility = View.VISIBLE
+                } else {
+                    ivNoteItemDescriptionOpenClose.setImageResource(R.drawable.ic_baseline_keyboard_double_arrow_down_32)
+                    tvNoteItemDescription.visibility = View.GONE
+                }
+
+
             }
+        }
+
+        private fun removeNoteItem() {
+            noteList.removeAt(layoutPosition)
+            notifyItemRemoved(layoutPosition)
+        }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
         }
     }
 
@@ -72,6 +112,25 @@ class NoteActivityAdapter(
     }
 
     private fun generateNoteItem() = NoteEntity(type = NoteEntity.TYPE_NOTE)
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        if (toPosition > 0) {
+            noteList.removeAt(fromPosition).apply {
+                noteList.add(
+                    if (toPosition > fromPosition) toPosition - 1 else toPosition,
+                    this
+                )
+            }
+            notifyItemMoved(fromPosition, toPosition)
+        }
+    }
+
+    override fun onItemDismiss(position: Int) {
+        noteList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+
 }
 
 
