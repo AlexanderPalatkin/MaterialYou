@@ -1,6 +1,7 @@
 package com.example.materialyou.ui.note
 
 data class NoteEntity(
+    var id: Int = 0,
     val type: Int = TYPE_NOTE,
     var noteTitle: String = "",
     var noteDescription: String = "",

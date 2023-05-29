@@ -7,18 +7,47 @@ import com.example.materialyou.databinding.ActivityNoteBinding
 
 class NoteActivity : AppCompatActivity() {
     lateinit var binding: ActivityNoteBinding
-    lateinit var noteItemTouchHelper: ItemTouchHelper
-    private val adapter = NoteActivityAdapter()
+    private lateinit var noteItemTouchHelper: ItemTouchHelper
+    private lateinit var adapter: NoteActivityAdapter
+    private var noteList: MutableList<NoteEntity> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val noteList = arrayListOf(
-            NoteEntity(type = NoteEntity.TYPE_HEADER)
-        )
+        noteList.add(NoteEntity(id = 0, type = NoteEntity.TYPE_HEADER))
 
+        adapter = NoteActivityAdapter(
+            { it ->
+                if (adapter.itemCount > 1) {
+                    var newNoteList: MutableList<NoteEntity> = mutableListOf()
+                    newNoteList.add(it.first())
+                    if (it.first().favourite) {
+                        it.remove(it.first())
+                        it.sortWith{l, r ->
+                            if (l.id > r.id) {
+                                -1
+                            } else {
+                                1
+                            }
+                        }
+                    } else {
+                        it.remove(it.first())
+                        it.sortWith{l, r ->
+                            if (l.id > r.id) {
+                                1
+                            } else {
+                                -1
+                            }
+                        }
+                    }
+                    newNoteList.addAll(it)
+                    adapter.setNoteItems(newNoteList)
+                }
+
+            }
+        )
         binding.recyclerNoteView.adapter = adapter
         adapter.setNoteItems(noteList)
 
@@ -30,4 +59,5 @@ class NoteActivity : AppCompatActivity() {
         noteItemTouchHelper = ItemTouchHelper(NoteItemTouchHelperCallback(adapter))
         noteItemTouchHelper.attachToRecyclerView(binding.recyclerNoteView)
     }
+
 }

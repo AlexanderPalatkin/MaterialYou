@@ -10,10 +10,12 @@ import com.example.materialyou.databinding.ActivityNoteRecyclerItemBinding
 import com.example.materialyou.databinding.ActivityNoteRecyclerItemHeaderBinding
 
 class NoteActivityAdapter(
+    private val onNoteListItemClickListener: OnNoteListItemClickListener,
     private var noteList: MutableList<NoteEntity> = mutableListOf()
 ) : RecyclerView.Adapter<NoteActivityAdapter.BaseNoteViewHolder>(), NoteItemTouchHelperAdapter {
 
     fun setNoteItems(newNoteList: List<NoteEntity>) {
+        noteList.clear()
         noteList.addAll(newNoteList)
         notifyDataSetChanged()
     }
@@ -59,6 +61,18 @@ class NoteActivityAdapter(
     inner class HeaderNoteViewHolder(view: View) : NoteActivityAdapter.BaseNoteViewHolder(view) {
         override fun bind(noteEntity: NoteEntity) {
             ActivityNoteRecyclerItemHeaderBinding.bind(itemView).apply {
+                ivNoteItemHeaderFavourite.setOnClickListener {
+                    noteList[layoutPosition] = noteList[layoutPosition].let {
+                        it.copy(favourite = !it.favourite)
+                    }
+                    notifyItemChanged(layoutPosition)
+                    onNoteListItemClickListener.onItemClick(noteList)
+                }
+                if (noteEntity.favourite) {
+                    ivNoteItemHeaderFavourite.setImageResource(R.drawable.ic_baseline_favorite_filled_24)
+                } else {
+                    ivNoteItemHeaderFavourite.setImageResource(R.drawable.ic_baseline_favorite_outlined_24)
+                }
 
             }
         }
@@ -81,7 +95,8 @@ class NoteActivityAdapter(
                         it.copy(
                             noteTitle = etNoteItemTitle.text.toString(),
                             noteDescription = etNoteItemDescription.text.toString(),
-                            favourite = !it.favourite
+                            favourite = !it.favourite,
+                            id = if (it.id == 0) 1 else 0
                         )
                     }
                     notifyItemChanged(layoutPosition)
