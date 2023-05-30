@@ -27,5 +27,6 @@
     <color name="green_acid">#92E60B</color>
     <color name="fabTint">#FFFFFF</color>
     <color name="explanations_title">#AF1C1C</color>
+    <color name="text_color_tv_note_item_description">#000</color>
 
 </resources>

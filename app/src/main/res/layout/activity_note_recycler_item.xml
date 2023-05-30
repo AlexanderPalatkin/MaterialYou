@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivNoteItemTitle"
+        android:layout_width="@dimen/layout_width_iv_note_item_title"
+        android:layout_height="@dimen/layout_height_iv_note_item_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/note" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etNoteItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/note_title"
+        android:maxLength="9"
+        android:textSize="@dimen/text_size_et_note_item_title"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivNoteItemTitle"
+        app:layout_constraintStart_toEndOf="@+id/ivNoteItemTitle"
+        app:layout_constraintTop_toTopOf="@+id/ivNoteItemTitle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivNoteItemDescriptionOpenClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_margin_iv_note_item_description_open_close"
+        app:layout_constraintBottom_toBottomOf="@id/etNoteItemTitle"
+        app:layout_constraintStart_toEndOf="@id/etNoteItemTitle"
+        app:srcCompat="@drawable/ic_baseline_keyboard_double_arrow_down_32" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivNoteItemFavourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_margin_iv_note_item_favourite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_favorite_outlined_24" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivNoteItemRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_margin_iv_note_item_remove"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivNoteItemFavourite"
+        app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etNoteItemDescription"
+        tools:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_tv_note_item_description"
+        android:hint="@string/description"
+        android:textColor="@color/text_color_tv_note_item_description"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivNoteItemTitle" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/ivNoteItemTitle"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
