@@ -91,7 +91,7 @@ class PictureOfTheDayFragment : Fragment() {
             viewModel.sendRequest(dayBeforeYesterday)
         }
 
-        binding.buttonExplain.setOnClickListener {
+        binding.fab.setOnClickListener {
             buttonExplainIsChecked = !buttonExplainIsChecked
             if (buttonExplainIsChecked) {
                 binding.imageView.animate().alpha(0.05f).duration = duration
@@ -166,7 +166,7 @@ class PictureOfTheDayFragment : Fragment() {
                     ImageSpan(drawable, verticalAlignment),
                     i,
                     i + 1,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    Spannable.SPAN_INCLUSIVE_INCLUSIVE
                 )
             }
         }
@@ -196,14 +196,12 @@ class PictureOfTheDayFragment : Fragment() {
         }
         val handler = Handler(Looper.getMainLooper())
         FontsContractCompat.requestFont(requireContext(), requestCallback, callback, handler)
-
     }
 
     private fun animateOnSuccessRenderData() {
         binding.tvExplanationTitle.animate().alpha(1f).duration = duration
         binding.imageView.animate().alpha(1f).duration = duration
         binding.tvExplanation.animate().alpha(0f).duration = duration
-        binding.buttonExplain.animate().alpha(1f).duration = duration
     }
 
     private fun Fragment.toast(string: String?) {
