@@ -96,7 +96,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0"
-            app:layout_constraintBottom_toBottomOf="@id/imageView"
             app:layout_constraintLeft_toLeftOf="@id/imageView"
             app:layout_constraintRight_toRightOf="@id/imageView"
             app:layout_constraintTop_toBottomOf="@id/tvExplanationTitle"
@@ -118,22 +117,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0"
-            android:background="@color/explanations_title"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
+            android:textSize="@dimen/explanation_title_text_size"
             app:layout_constraintEnd_toEndOf="@id/imageView"
             app:layout_constraintStart_toStartOf="@id/imageView"
             app:layout_constraintTop_toTopOf="@id/imageView"
             tools:text="M16: Eagle Nebula Deep Field" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonExplain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:text="@string/explanation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

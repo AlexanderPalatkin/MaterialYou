@@ -54,16 +54,16 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etNoteItemDescription"
-        tools:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_tv_note_item_description"
         android:hint="@string/description"
+        android:padding="@dimen/padding_tv_note_item_description"
         android:textColor="@color/text_color_tv_note_item_description"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivNoteItemTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/ivNoteItemTitle"
+        tools:visibility="visible" />
 
 
     <View
