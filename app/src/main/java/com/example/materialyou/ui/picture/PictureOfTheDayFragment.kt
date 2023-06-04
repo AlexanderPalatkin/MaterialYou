@@ -4,19 +4,21 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
-import android.os.Build.VERSION
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.DynamicDrawableSpan
-import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
+import android.text.style.TypefaceSpan
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.provider.FontRequest
+import androidx.core.provider.FontsContractCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -155,8 +157,8 @@ class PictureOfTheDayFragment : Fragment() {
 
         val verticalAlignment = DynamicDrawableSpan.ALIGN_BASELINE
         val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_earth)!!
-        val widthInPx = 26
-        val heightInPx = 26
+        val widthInPx = 20
+        val heightInPx = 20
         drawable.setBounds(0, 0, widthInPx, heightInPx)
         for (i in spannable.indices) {
             if (spannable[i] == 'o') {
@@ -169,7 +171,31 @@ class PictureOfTheDayFragment : Fragment() {
             }
         }
 
-        spannable.insert(0, getString(R.string.start_explanation_text))
+        val startExplanationText = getString(R.string.start_explanation_text)
+        spannable.insert(0, startExplanationText)
+
+        val requestCallback = FontRequest(
+            "com.google.android.gms.fonts",
+            "com.google.android.gms",
+            "Lora",
+            R.array.com_google_android_gms_fonts_certs
+        )
+        val callback = object : FontsContractCompat.FontRequestCallback() {
+            override fun onTypefaceRetrieved(typeface: Typeface?) {
+                typeface?.let {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        spannable.setSpan(
+                            TypefaceSpan(it),
+                            startExplanationText.length,
+                            spannable.length,
+                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                        )
+                    }
+                }
+            }
+        }
+        val handler = Handler(Looper.getMainLooper())
+        FontsContractCompat.requestFont(requireContext(), requestCallback, callback, handler)
 
     }
 
