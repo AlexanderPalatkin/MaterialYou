@@ -28,4 +28,5 @@
     <dimen name="layout_margin_iv_note_item_favourite">10dp</dimen>
     <dimen name="layout_margin_iv_note_item_remove">10dp</dimen>
     <dimen name="padding_tv_note_item_description">10dp</dimen>
+    <dimen name="explanation_title_text_size">24sp</dimen>
 </resources>

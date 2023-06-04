@@ -19,9 +19,9 @@ class NoteActivity : AppCompatActivity() {
         noteList.add(NoteEntity(id = 0, type = NoteEntity.TYPE_HEADER))
 
         adapter = NoteActivityAdapter(
-            { it ->
+            {
                 if (adapter.itemCount > 1) {
-                    var newNoteList: MutableList<NoteEntity> = mutableListOf()
+                    val newNoteList: MutableList<NoteEntity> = mutableListOf()
                     newNoteList.add(it.first())
                     if (it.first().favourite) {
                         it.remove(it.first())

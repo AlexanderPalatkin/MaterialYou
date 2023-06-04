@@ -40,4 +40,5 @@
     <string name="description">Описание</string>
     <string name="test">test</string>
     <string name="notebook">Notebook</string>
+    <string name="start_explanation_text">\"Explanation: \"</string>
 </resources>

@@ -1,11 +1,22 @@
 package com.example.materialyou.ui.picture
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
+import android.os.Build.VERSION
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.DynamicDrawableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.ImageSpan
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.provider.FontRequest
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -81,7 +92,7 @@ class PictureOfTheDayFragment : Fragment() {
         binding.buttonExplain.setOnClickListener {
             buttonExplainIsChecked = !buttonExplainIsChecked
             if (buttonExplainIsChecked) {
-                binding.imageView.animate().alpha(0.2f).duration = duration
+                binding.imageView.animate().alpha(0.05f).duration = duration
                 binding.tvExplanation.animate().alpha(1f).duration = duration
             } else {
                 binding.imageView.animate().alpha(1f).duration = duration
@@ -110,22 +121,63 @@ class PictureOfTheDayFragment : Fragment() {
                 val url = data.pictureOfTheDayResponseData.url
                 val titleText = data.pictureOfTheDayResponseData.title
                 val explanationText = data.pictureOfTheDayResponseData.explanation
-                if (url.isEmpty() || titleText.isEmpty()) {
+                if (url.isEmpty() || titleText.isEmpty() || explanationText.isEmpty()) {
                     toast(getString(R.string.link_is_empty))
                 } else {
                     buttonExplainIsChecked = false
 
                     binding.imageView.load(url)
                     binding.tvExplanationTitle.text = titleText
-                    binding.tvExplanation.text = explanationText
 
-                    binding.tvExplanationTitle.animate().alpha(1f).duration = duration
-                    binding.imageView.animate().alpha(1f).duration = duration
-                    binding.tvExplanation.animate().alpha(0f).duration = duration
-                    binding.buttonExplain.animate().alpha(1f).duration = duration
+                    binding.tvExplanationTitle.typeface = Typeface.createFromAsset(
+                        requireContext().assets,
+                        "KeplerStdSemiboldScnItSubh.otf"
+                    )
+
+                    val spannableStringBuilderExplanationText =
+                        SpannableStringBuilder(explanationText)
+                    binding.tvExplanation.setText(
+                        spannableStringBuilderExplanationText,
+                        TextView.BufferType.EDITABLE
+                    )
+                    val spannableExplanationText =
+                        binding.tvExplanation.text as SpannableStringBuilder
+
+                    initSpan(spannableExplanationText)
+
+                    animateOnSuccessRenderData()
                 }
             }
         }
+    }
+
+    private fun initSpan(spannable: SpannableStringBuilder) {
+
+        val verticalAlignment = DynamicDrawableSpan.ALIGN_BASELINE
+        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_earth)!!
+        val widthInPx = 26
+        val heightInPx = 26
+        drawable.setBounds(0, 0, widthInPx, heightInPx)
+        for (i in spannable.indices) {
+            if (spannable[i] == 'o') {
+                spannable.setSpan(
+                    ImageSpan(drawable, verticalAlignment),
+                    i,
+                    i + 1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        }
+
+        spannable.insert(0, getString(R.string.start_explanation_text))
+
+    }
+
+    private fun animateOnSuccessRenderData() {
+        binding.tvExplanationTitle.animate().alpha(1f).duration = duration
+        binding.imageView.animate().alpha(1f).duration = duration
+        binding.tvExplanation.animate().alpha(0f).duration = duration
+        binding.buttonExplain.animate().alpha(1f).duration = duration
     }
 
     private fun Fragment.toast(string: String?) {
