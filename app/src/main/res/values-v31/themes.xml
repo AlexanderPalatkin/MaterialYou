@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SplashTheme" parent="Theme.MaterialYou">
+        <item name="android:windowSplashScreenBackground">@color/light_gray</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/animate_solar_system</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/black</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/ic_splash_screen</item>
+    </style>
+</resources>
